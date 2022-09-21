@@ -60,7 +60,6 @@ const ContactUsScreen = () => {
 				<Title style={styles.title}>{'Birthday'}</Title>
 				<DateTimePicker
 					style={styles.datePicker}
-					// title="Birthdate"
 					onChange={(_, date) => { setbirthdate(date) }}
 					maximumDate={new Date()}
 					value={birthdate}
