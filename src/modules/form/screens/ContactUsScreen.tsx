@@ -79,9 +79,9 @@ const ContactUsScreen = () => {
 				<Dialog visible={visible} onDismiss={() => setVisible(false)}>
 					<Dialog.Title>{'Information'}</Dialog.Title>
 					<Dialog.Content>
-						<Paragraph>{`Name : ${name}`}</Paragraph>
-						<Paragraph>{`Email : ${email}`}</Paragraph>
-						<Paragraph>{`Birthdate : ${birthdate.toDateString()}`}</Paragraph>
+						<Paragraph testID='dialogName'>{`Name: ${name}`}</Paragraph>
+						<Paragraph testID='dialogEmail'>{`Email: ${email}`}</Paragraph>
+						<Paragraph>{`Birthdate: ${birthdate.toDateString()}`}</Paragraph>
 					</Dialog.Content>
 					<Dialog.Actions>
 					<Button onPress={() => setVisible(false)}>{'Done'}</Button>
