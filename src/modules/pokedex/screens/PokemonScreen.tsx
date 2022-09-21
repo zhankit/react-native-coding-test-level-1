@@ -2,7 +2,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Text, Title } from 'react-native-paper';
-import { Pokemon } from '../typings';
+import * as PokedexType from '../typings';
 import { retrievePokemonAction } from '../src/pokedexAction';
 import { pokemonDetailSelector } from '../src/pokedexSelectors';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import { GlobalState } from '../../store/typings';
 import { NavigationContainerProps } from '@react-navigation/native';
 
 interface PokemonStateProps {
-	details: Pokemon
+	details: PokedexType.Pokemon
 }
 
 interface PokemonDispatchProps {
@@ -51,7 +51,6 @@ const PokemonScreen = (props: PokemonStateProps & PokemonDispatchProps & Navigat
 
 const styles = StyleSheet.create({
 	viewContainer: {
-		// margin: 10,
 		backgroundColor: 'white'
 	},
 	informationContainer: {
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	details: {
-		// fontWeight: '500',
 		fontSize: 20
 	}
 });

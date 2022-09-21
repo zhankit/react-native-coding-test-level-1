@@ -5,11 +5,11 @@ import { retrievePokedexAction } from '../src/pokedexAction';
 import { PokedexSelector } from '../src/pokedexSelectors';
 import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { Pokedex } from '../typings';
+import * as PokedexType from '../typings';
 import { GlobalState } from '../../store/typings';
 
 interface PokedexStateProps {
-	items: Pokedex[]
+	items: PokedexType.Pokedex[]
 }
 
 interface PokedexDispatchProps {
@@ -33,7 +33,7 @@ const PokedexScreen = (props: PokedexProps) => {
 		setIsFetching(false);
 	}
 
-	const renderItem = ({ item }: { item: Pokedex }) => (
+	const renderItem = ({ item }: { item: PokedexType.Pokedex }) => (
 		<Card style={{ backgroundColor: 'white', margin: 10 }}>
 			<Card.Title title={item.name} />
 			<Divider style={{backgroundColor: 'black'}} />
@@ -48,7 +48,6 @@ const PokedexScreen = (props: PokedexProps) => {
 			<FlatList
 				data={props.items}
 				renderItem={renderItem}
-				// keyExtractor={item => item.name}
 				onEndReachedThreshold={0.2}
 				onRefresh={refreshList}
 				refreshing={isFetching}
@@ -61,9 +60,7 @@ const PokedexScreen = (props: PokedexProps) => {
 }
 
 const styles = StyleSheet.create({
-	viewContainer: {
-		// backgroundColor: 'white'
-	},
+	viewContainer: {},
 	textInput: {
 		marginHorizontal: 20,
 		marginTop: 10,

@@ -2,7 +2,7 @@ import { all, call, take, put, select } from 'redux-saga/effects'
 import axios from 'axios';
 import { clearPokedexAction, retrievePokedexAction, retrievePokemonAction, storePokemonDetailsAction, storePokedexAction } from './pokedexAction';
 import { PokedexSelector } from './pokedexSelectors';
-import { PokedexConfig, Pokemon } from '../typings';
+import * as PokedexType from '../typings';
 
 export default function* pokedexRuntime() {
 	yield all([
@@ -11,26 +11,29 @@ export default function* pokedexRuntime() {
 	]);
 }
 
+/**
+ * Retrieve pokedex with pagination of 10
+ * Store the list and append to the state, only reload will clear the cache
+ */
 function* retrievePokedex() {
 	while (true) {
 		try {
 
 			// Refresh Action
 			const action = yield take(retrievePokedexAction.toString());
-			const actionPayload: PokedexConfig = action.payload;
+			const actionPayload: PokedexType.PokedexConfig = action.payload;
 			const isRefresh: boolean = actionPayload.isRefresh;
 
 			if (isRefresh) {
 				yield put(clearPokedexAction())
 			}
 
-			const Pokedex: Pokedex[] = yield select(PokedexSelector);
+			const Pokedex: PokedexType.Pokedex[] = yield select(PokedexSelector);
 
 			const offsetValue = Pokedex.length
 
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method
 			const response = yield call(axios.get, `https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offsetValue}`);
-			const result: Pokedex[] = response.data.results
+			const result: PokedexType.Pokedex[] = response.data.results
 			yield put(storePokedexAction(result))
 
 
@@ -41,6 +44,10 @@ function* retrievePokedex() {
 	}
 }
 
+/**
+ * Retrieve pokedexDetails by name
+ * Store the details
+ */
 function* retrievePokedexDetail() {
 	while (true) {
 		try {
@@ -49,10 +56,8 @@ function* retrievePokedexDetail() {
 			const action = yield take(retrievePokemonAction.toString());
 			const pokemonName: string = action.payload;
 
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method
 			const response = yield call(axios.get, `https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-			const result: Pokemon = response.data
-			// console.log('result', pokemonName, result);
+			const result: PokedexType.Pokemon = response.data
 			yield put(storePokemonDetailsAction(result))
 
 		} catch(err) {

@@ -15,9 +15,6 @@ type RootStackParamList = {
 	Pokemon: undefined;
 };
 
-// const RootStack = createStackNavigator<RootStackParamList>();
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function NavigatorContainer() {

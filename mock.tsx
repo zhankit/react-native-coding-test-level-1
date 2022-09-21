@@ -12,7 +12,7 @@ jest.mock('@react-navigation/native', () => {
 });
 
 jest.mock('react-native-paper', () => {
-	// I am using modal component from react native paper so that is // the reason to mock react-native-paper module
+	// Mock state for react-native-paper wrapper
 	const React = require('react');
 	const {View} = require('react-native');
 	const RealModule = jest.requireActual('react-native-paper');
